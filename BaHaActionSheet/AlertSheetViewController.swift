@@ -47,11 +47,11 @@ class AlertSheetViewController: UIViewController {
     
     @IBAction func showActionSheet(_ sender: Any) {
         let actionController = BahaActionSheet.bulider()
-        actionController.addAction(Action(ActionData(title: "Add to Watch Later"), handler: { action in
+        actionController.addAction(Action(ActionData(title: "Add to Watch Later", image: UIImage(named: "yt-add-to-watch-later-icon")!), handler: { action in
         }))
-        actionController.addAction(Action(ActionData(title: "Add to Playlist..."), handler: { action in
+        actionController.addAction(Action(ActionData(title: "Add to Playlist...", image: UIImage(named: "yt-add-to-playlist-icon")!), handler: { action in
         }))
-        actionController.addAction(Action(ActionData(title: "Share..."), handler: { action in
+        actionController.addAction(Action(ActionData(title: "Share...", image: UIImage(named: "yt-share-icon")!), handler: { action in
         }))
         actionController.addAction(Action(ActionData(title: "Cancel", image: UIImage(named: "yt-cancel-icon")!), handler: nil))
         
