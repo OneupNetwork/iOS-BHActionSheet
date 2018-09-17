@@ -1,6 +1,7 @@
 # BaHaActionSheet-ios
 
-## Alert Sheet
+## Demo
+### Alert Sheet
 <table>
  <tr>
   <td>
@@ -11,8 +12,7 @@
   </td>
  </tr>
 </table>
-
-## Popover
+### Popover
 <table>
  <tr>
    <td>
@@ -23,3 +23,7 @@
    </td>
  </tr>
 </table>
+
+## Installation
+### CocoaPods
+Check out Get Started tab on cocoapods.org.
