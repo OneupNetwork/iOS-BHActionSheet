@@ -75,7 +75,7 @@ open class BahaActionSheet: UIViewController, UICollectionViewDataSource, UIColl
         return collectionViewLayout
     }()
     
-    func addAction(_ action: Action) {
+    open func addAction(_ action: Action) {
         actions.append(action)
     }
     
