@@ -46,7 +46,6 @@ open class BahaActionSheet: UIViewController, UICollectionViewDataSource, UIColl
 
     fileprivate var isPresenting = false
     fileprivate let reusableCell = "cell"
-    var themeStyle: ThemeStyle = .light
     var actions = [Action]()
     
     let mainWidth = UIScreen.main.bounds.width

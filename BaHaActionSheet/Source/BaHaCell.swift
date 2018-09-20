@@ -75,7 +75,8 @@ class BaHaCell: UICollectionViewCell {
         backgroundColor = ActionSetting.share.backgroundColor
         separatorView.backgroundColor = ActionSetting.share.separatorColor
         actionTitleLabel.textColor = ActionSetting.share.titleColor
-        actionTitleLabel.font = UIFont.systemFont(ofSize: ActionSetting.share.titleTextSize)
+        actionTitleLabel.font = ActionSetting.share.titleTextFont
+        actionImageView.contentMode = ActionSetting.share.imageContentMode
     }
     
     required init?(coder aDecoder: NSCoder) {
