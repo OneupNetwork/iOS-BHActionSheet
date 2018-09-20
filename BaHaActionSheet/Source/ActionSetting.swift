@@ -52,6 +52,7 @@ public class ActionSetting {
     public var backgroundColor: UIColor = UIColor.white
     public var separatorColor: UIColor = UIColor(white: 204 / 255, alpha: 0.5)
     public var titleColor: UIColor = UIColor(white: 111 / 255, alpha: 1)
+    public var titleTextSize: CGFloat = 15
     public var cellHeight: CGFloat = 48
     public var imageSize: CGFloat = 24
     public var animationDuration = 0.4
