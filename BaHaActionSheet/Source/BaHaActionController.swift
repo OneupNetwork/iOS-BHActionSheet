@@ -144,7 +144,7 @@ open class BaHaActionController: BahaActionSheet {
                 return
             }
             let borderMask = CAShapeLayer()
-            borderMask.path = UIBezierPath(roundedRect: firstCell.bounds, byRoundingCorners: corners, cornerRadii: CGSize(width: 3.0, height: 3.0)).cgPath
+            borderMask.path = UIBezierPath(roundedRect: CGRect(x: 0, y: 0, width: firstCell.bounds.width, height: firstCell.bounds.height + 5), byRoundingCorners: corners, cornerRadii: CGSize(width: 3.0, height: 3.0)).cgPath
             firstCell.layer.mask = borderMask
         }
         
@@ -156,7 +156,7 @@ open class BaHaActionController: BahaActionSheet {
                 return
             }
             let borderMask = CAShapeLayer()
-            borderMask.path = UIBezierPath(roundedRect: lastCell.bounds, byRoundingCorners: corners, cornerRadii: CGSize(width: 3.0, height: 3.0)).cgPath
+            borderMask.path = UIBezierPath(roundedRect: CGRect(x: 0, y: -5, width: lastCell.bounds.width, height: lastCell.bounds.height + 5), byRoundingCorners: corners, cornerRadii: CGSize(width: 3.0, height: 3.0)).cgPath
             lastCell.layer.mask = borderMask
         }
     }

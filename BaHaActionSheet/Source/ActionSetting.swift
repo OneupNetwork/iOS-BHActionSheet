@@ -26,18 +26,18 @@
 import Foundation
 import UIKit
 
-enum ThemeStyle {
+public enum ThemeStyle {
     case light, dark
 }
 
-class ActionSetting {
+public class ActionSetting {
     
-    static let share = ActionSetting()
+    public static let share = ActionSetting()
     
     private init() {
     }
     
-    var style: ThemeStyle = .light {
+    public var style: ThemeStyle = .light {
         didSet {
             switch style {
             case .light:
@@ -49,10 +49,10 @@ class ActionSetting {
             }
         }
     }
-    var backgroundColor: UIColor = UIColor.white
-    var separatorColor: UIColor = UIColor(white: 204 / 255, alpha: 0.5)
-    var titleColor: UIColor = UIColor(white: 111 / 255, alpha: 1)
-    var cellHeight: CGFloat = 48
-    var imageSize: CGFloat = 24
-    var animationDuration = 0.4
+    public var backgroundColor: UIColor = UIColor.white
+    public var separatorColor: UIColor = UIColor(white: 204 / 255, alpha: 0.5)
+    public var titleColor: UIColor = UIColor(white: 111 / 255, alpha: 1)
+    public var cellHeight: CGFloat = 48
+    public var imageSize: CGFloat = 24
+    public var animationDuration = 0.4
 }
