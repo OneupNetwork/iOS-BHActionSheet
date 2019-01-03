@@ -1,4 +1,4 @@
-# BaHaActionSheet-ios
+# iOS-BHActionSheet
 
 ## Demo
 ### Alert Sheet
