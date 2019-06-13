@@ -122,7 +122,6 @@ open class BahaActionSheet: UIViewController, UICollectionViewDataSource, UIColl
         let action = actions[indexPath.item]
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reusableCell, for: indexPath) as! BaHaCell
         cell.setup(data: action.data)
-        cell.separatorView.isHidden = indexPath.item == (collectionView.numberOfItems(inSection: indexPath.section)) - 1
         return cell
     }
     

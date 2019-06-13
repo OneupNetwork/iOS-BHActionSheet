@@ -35,26 +35,26 @@ class PopoverViewController: UIViewController {
     
     @objc func rightButtonClick(_ sender: UIBarButtonItem) {
         let actionController = BahaActionSheet.bulider(sourceView: sender.value(forKey: "view") as! UIView)
-        actionController.addAction(Action(ActionData(title: "Add to Watch Later"), handler: { action in
+        actionController.addAction(Action(ActionData(title: "Add to Watch Later", type: .plain), handler: { action in
         }))
-        actionController.addAction(Action(ActionData(title: "Add to Playlist..."), handler: { action in
+        actionController.addAction(Action(ActionData(title: "Add to Playlist...", type: .plain), handler: { action in
         }))
-        actionController.addAction(Action(ActionData(title: "Share..."), handler: { action in
+        actionController.addAction(Action(ActionData(title: "Share...", type: .plain), handler: { action in
         }))
-        actionController.addAction(Action(ActionData(title: "Cancel"), handler: nil))
+        actionController.addAction(Action(ActionData(title: "Cancel", type: .cancel), handler: nil))
         
         present(actionController, animated: true, completion: nil)
     }
 
     @IBAction func showActionSheet(_ sender: Any) {
         let actionController = BahaActionSheet.bulider(sourceView: sender as! UIView)
-        actionController.addAction(Action(ActionData(title: "Add to Watch Later", image: UIImage(named: "yt-add-to-watch-later-icon")!), handler: { action in
+        actionController.addAction(Action(ActionData(title: "Add to Watch Later", image: UIImage(named: "icon_mail")!, type: .plain), handler: { action in
         }))
-        actionController.addAction(Action(ActionData(title: "Add to Playlist...", image: UIImage(named: "yt-add-to-playlist-icon")!), handler: { action in
+        actionController.addAction(Action(ActionData(title: "Add to Playlist...", image: UIImage(named: "icon_home")!, type: .plain), handler: { action in
         }))
-        actionController.addAction(Action(ActionData(title: "Share...", image: UIImage(named: "yt-share-icon")!), handler: { action in
+        actionController.addAction(Action(ActionData(title: "Share...", image: UIImage(named: "icon_description")!, type: .plain), handler: { action in
         }))
-        actionController.addAction(Action(ActionData(title: "Cancel", image: UIImage(named: "yt-cancel-icon")!), handler: nil))
+        actionController.addAction(Action(ActionData(title: "Cancel", image: UIImage(named: "icon_cancel")!, type: .cancel), handler: nil))
         
         present(actionController, animated: true, completion: nil)
     }

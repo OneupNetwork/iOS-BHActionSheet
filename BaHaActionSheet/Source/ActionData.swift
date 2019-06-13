@@ -26,14 +26,20 @@
 import Foundation
 import UIKit
 
+public enum ActionStyle {
+    case plain, cancel
+}
+
 public struct ActionData {
     
     public fileprivate(set) var title: String
     public fileprivate(set) var image: UIImage?
+    public fileprivate(set) var type: ActionStyle
     
-    public init(title: String, image: UIImage? = nil) {
+    public init(title: String, image: UIImage? = nil, type: ActionStyle) {
         self.title = title
         self.image = image
+        self.type = type
     }
 
 }

@@ -40,6 +40,7 @@ open class BaHaActionController: BahaActionSheet {
         super.viewDidLoad()
         modalPresentationCapturesStatusBarAppearance = true
         view.addSubview(backgroundView)
+        collectionView.clipsToBounds = false
         collectionView.isScrollEnabled = false
         collectionView.showsVerticalScrollIndicator = false
         let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(tapGestureDidRecognize(_:)))
@@ -73,7 +74,9 @@ open class BaHaActionController: BahaActionSheet {
         coordinator.animate(alongsideTransition: { [weak self] _ in
             self?.setUpContentInsetForHeight(size.height)
             self?.collectionView.reloadData()
-            }, completion: nil)
+            }, completion: { [weak self] _ in
+                self?.drawCell()
+        })
         collectionView.layoutIfNeeded()
     }
     
@@ -96,7 +99,8 @@ open class BaHaActionController: BahaActionSheet {
     open override func presentView(_ presentedView: UIView, presentingView: UIView, animationDuration: Double, completion: ((_ completed: Bool) -> Void)?) {
         
         backgroundView.alpha = 0.0
-        drawCellCorner()
+        drawCell()
+        collectionView.frame = CGRect(x: view.bounds.minX, y: view.bounds.height, width: view.bounds.width, height: view.bounds.height)
         UIView.animate(withDuration: animationDuration,
                        delay: 0,
                        usingSpringWithDamping: 1,
@@ -113,58 +117,49 @@ open class BaHaActionController: BahaActionSheet {
     }
     
     open override func dismissView(_ presentedView: UIView, presentingView: UIView, animationDuration: Double, completion: ((_ completed: Bool) -> Void)?) {
-        
-        UIView.animate(withDuration: animationDuration,
-                       delay: 0,
-                       usingSpringWithDamping: 1,
-                       initialSpringVelocity: 0,
-                       options: .allowUserInteraction,
-                       animations: { [weak self] in
-                        guard let `self` = self else { return }
-                        self.backgroundView.alpha = 0.0
-                        self.collectionView.frame.origin.y = self.contentHeight + self.safeAreaInsets.bottom
-            },
-                       completion: { _ in
-                        completion?(true)
+        let upTime = 0.1
+        UIView.animate(withDuration: upTime, delay: 0, options: .curveEaseIn, animations: { [weak self] in
+            self?.collectionView.frame.origin.y -= 10
+            }, completion: { [weak self] (completed) -> Void in
+                UIView.animate(withDuration: animationDuration - upTime,
+                               delay: 0,
+                               usingSpringWithDamping: 1,
+                               initialSpringVelocity: 0,
+                               options: UIView.AnimationOptions.curveEaseIn,
+                               animations: { [weak self] in
+                                guard let `self` = self else { return }
+                                self.backgroundView.alpha = 0.0
+                                self.collectionView.frame.origin.y = self.contentHeight + self.safeAreaInsets.bottom
+                    },
+                               completion: { _ in
+                                completion?(true)
+                })
         })
     }
     
-    fileprivate func drawCellCorner() {
+    fileprivate func drawCell() {
         
         if let firstCell = collectionView.cellForItem(at: IndexPath(item: 0, section: 0)) {
-            var corners = UIRectCorner()
-            corners = [.topLeft, .topRight]
             if actions.count == 1 {
-                if safeAreaInsets.bottom > 0 {
-                    drawSafeArea(cell: firstCell)
-                } else {
-                    firstCell.layer.mask = nil
-                    firstCell.layer.cornerRadius = 3.0
-                }
+                drawSafeArea(cell: firstCell)
                 return
             }
-            let borderMask = CAShapeLayer()
-            borderMask.path = UIBezierPath(roundedRect: CGRect(x: 0, y: 0, width: firstCell.bounds.width, height: firstCell.bounds.height + 5), byRoundingCorners: corners, cornerRadii: CGSize(width: 3.0, height: 3.0)).cgPath
-            firstCell.layer.mask = borderMask
         }
         
         if let lastCell = collectionView.cellForItem(at: IndexPath(item: actions.count - 1, section: 0)) {
-            var corners = UIRectCorner()
-            corners = [.bottomLeft, .bottomRight]
-            if safeAreaInsets.bottom > 0 {
-                drawSafeArea(cell: lastCell)
-                return
-            }
-            let borderMask = CAShapeLayer()
-            borderMask.path = UIBezierPath(roundedRect: CGRect(x: 0, y: -5, width: lastCell.bounds.width, height: lastCell.bounds.height + 5), byRoundingCorners: corners, cornerRadii: CGSize(width: 3.0, height: 3.0)).cgPath
-            lastCell.layer.mask = borderMask
+            drawSafeArea(cell: lastCell)
         }
     }
     
     fileprivate func drawSafeArea(cell: UICollectionViewCell) {
         cell.clipsToBounds = false
+        cell.layer.sublayers?.forEach{if $0.name == "shapeLayer"{
+                $0.removeFromSuperlayer()
+            }
+        }
         let shapeLayer = CAShapeLayer()
-        shapeLayer.frame = CGRect(x: 0, y: cell.bounds.height, width: cell.bounds.width, height: safeAreaInsets.bottom)
+        shapeLayer.name = "shapeLayer"
+        shapeLayer.frame = CGRect(x: 0, y: cell.bounds.height, width: collectionView.bounds.width - (collectionView.contentInset.left + collectionView.contentInset.right), height: safeAreaInsets.bottom + 20)
         shapeLayer.backgroundColor = ActionSetting.share.backgroundColor.cgColor
         cell.layer.addSublayer(shapeLayer)
     }
@@ -192,5 +187,4 @@ open class BaHaActionController: BahaActionSheet {
         
         collectionView.isScrollEnabled = contentHeight + safeAreaInsets.bottom + safeAreaInsets.top > mainHeight
     }
-
 }

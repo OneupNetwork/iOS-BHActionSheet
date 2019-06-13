@@ -26,11 +26,6 @@
 import UIKit
 
 class BaHaCell: UICollectionViewCell {
-    
-    open lazy var animateSelectBackgroundView: UIView = { [weak self] in
-        let view = UIView()
-        return view
-    }()
 
     open lazy var customBackgroundView: UIView = { [weak self] in
         let view = UIView()
@@ -48,11 +43,10 @@ class BaHaCell: UICollectionViewCell {
         super.init(frame: frame)
         contentView.addSubview(actionImageView)
         actionImageView.translatesAutoresizingMaskIntoConstraints = false
-        actionImageView.contentMode = .scaleAspectFit
         actionImageView.widthAnchor.constraint(equalToConstant: ActionSetting.share.imageSize).isActive = true
         actionImageView.heightAnchor.constraint(equalToConstant: ActionSetting.share.imageSize).isActive = true
         actionImageView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor, constant: 0).isActive = true
-        actionImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16).isActive = true
+        actionImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 24).isActive = true
         contentView.addSubview(actionTitleLabel)
         actionTitleLabel.translatesAutoresizingMaskIntoConstraints = false
         imageRightConstraint = actionTitleLabel.leadingAnchor.constraint(equalTo: actionImageView.trailingAnchor, constant: 16)
@@ -62,14 +56,13 @@ class BaHaCell: UICollectionViewCell {
         contentView.addSubview(separatorView)
         separatorView.translatesAutoresizingMaskIntoConstraints = false
         separatorView.heightAnchor.constraint(equalToConstant: 1).isActive = true
-        separatorView.leadingAnchor.constraint(equalTo: actionTitleLabel.leadingAnchor, constant: 0).isActive = true
+        separatorView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 0).isActive = true
         separatorView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: 0).isActive = true
         separatorView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: 0).isActive = true
         
         let backgroundView = UIView()
         backgroundView.backgroundColor = UIColor.black.withAlphaComponent(0.0)
         backgroundView.addSubview(customBackgroundView)
-        backgroundView.addSubview(animateSelectBackgroundView)
         selectedBackgroundView = backgroundView
         
         backgroundColor = ActionSetting.share.backgroundColor
@@ -95,26 +88,21 @@ class BaHaCell: UICollectionViewCell {
             imageRightConstraint?.isActive = false
             titleLeftConstraint?.isActive = true
         }
+        switch data.type {
+        case .cancel:
+            actionTitleLabel.textColor = ActionSetting.share.cancelColor
+            actionImageView.image = actionImageView.image?.withRenderingMode(.alwaysTemplate)
+            actionImageView.tintColor = ActionSetting.share.cancelColor
+        default:
+            break
+        }
     }
     
     open override var isHighlighted: Bool {
         didSet {
             if isHighlighted {
                 customBackgroundView.frame = CGRect(x: 0, y: 0, width: frame.width, height: frame.height)
-                animateSelectBackgroundView.backgroundColor = UIColor.black.withAlphaComponent(0.0)
-                animateSelectBackgroundView.frame = CGRect(x: 0, y: 0, width: 30, height: frame.height)
-                animateSelectBackgroundView.center = CGPoint(x: frame.width * 0.5, y: frame.height * 0.5)
-                
-                UIView.animate(withDuration: 0.5) { [weak self] in
-                    guard let `self`  = self else {
-                        return
-                    }
-                    
-                    self.animateSelectBackgroundView.frame = CGRect(x: 0, y: 0, width: self.frame.width, height: self.frame.height)
-                    self.animateSelectBackgroundView.backgroundColor = UIColor.black.withAlphaComponent(0.08)
-                }
             } else {
-                animateSelectBackgroundView.backgroundColor = animateSelectBackgroundView.backgroundColor?.withAlphaComponent(0.0)
                 customBackgroundView.backgroundColor = customBackgroundView.backgroundColor?.withAlphaComponent(0.0)
             }
         }
