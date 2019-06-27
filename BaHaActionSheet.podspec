@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "BaHaActionSheet"
-  s.version      = "1.1.0"
+  s.version      = "1.1.1"
   s.summary      = "BaHaActionSheet the Bahamut alert sheet in Swift"
   s.homepage     = "https://github.com/OneupNetwork/BaHaActionSheet-ios"
   s.license      = "MIT"

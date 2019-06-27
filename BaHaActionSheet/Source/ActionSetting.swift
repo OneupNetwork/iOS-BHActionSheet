@@ -50,12 +50,12 @@ public class ActionSetting {
         }
     }
     public var backgroundColor: UIColor = UIColor.white
-    public var separatorColor: UIColor = UIColor(white: 229 / 255, alpha: 1)
-    public var titleColor: UIColor = UIColor(white: 111 / 255, alpha: 1)
+    public var separatorColor: UIColor = UIColor(white: 229 / 255, alpha: 0)
+    public var titleColor: UIColor = UIColor(white: 26 / 255, alpha: 1)
     public var cancelColor: UIColor = UIColor(red: 242.0/255.0, green: 92.0/255.0, blue: 98.0/255.0, alpha: 1.0)
-    public var titleTextFont: UIFont = UIFont.systemFont(ofSize: 15)
+    public var titleTextFont: UIFont = UIFont.systemFont(ofSize: 14)
     public var cellHeight: CGFloat = 52
-    public var imageSize: CGFloat = 20
+    public var imageSize: CGFloat = 18
     public var imageContentMode: UIViewContentMode = .scaleAspectFit
     public var animationDuration = 0.4
 }
